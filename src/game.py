@@ -1,7 +1,25 @@
+import pygame
 import time
+import random
 
-print("Welcome to the sample repository!")
-time.sleep(1)
-print("All the code for your game should go in the src folder")
-time.sleep(1)
-print("Now delete this file and make your own!")
+health = 100
+hunger = 0
+disease = 0
+time = 0
+distance_remaining = 2000
+food = 100
+wheels = 4
+oxen = 4
+clothes = 5
+
+print("Welcome to the Oregon Trail.")
+name = ""
+while name == "":
+    name = input("What is your name?")
+    for n in name.lower():
+        if n not in "abcdefghijklmnopqrstuvwxyz":
+            print("That's not valid, try again.")
+            name = ""
+            break
+print(f"Hello {name.title()}.")
+            
