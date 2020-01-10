@@ -14,6 +14,7 @@ oxen = 4
 clothes = 5
 money = 500
 diseases = []
+game = True
 
 def intro():
   print("Welcome to the Oregon Trail.")
@@ -90,23 +91,83 @@ def choose_an_option(days):
       time.sleep(1)
       print("That's not valid. Try again. The option must be an integer, either 1, 2, 3, or 4, depending on what you would like to do today.")
     else:
+      print("\n")
       return option 
 
-def travel(health):
-  if health >= 75:
-    distance_travelled = random.randint(12, 18)
-  elif 75 > health >= 50:
-    distance_travelled = random.randint(7, 13)
-  else:
-    distance_travelled = random.randint(5, 7)  
+def travel():
+  what_to_judge_travel_by = random.randint(1,3)
+  if what_to_judge_travel_by == 1:
+      if health >= 75:
+        distance_travelled = random.randint(12, 18)
+      elif 75 > health >= 50:
+        distance_travelled = random.randint(7, 13)
+      else:
+            distance_travelled = random.randint(5, 7)
+  if what_to_judge_travel_by == 2:
+      if oxen > 4:
+        distance_travelled = random.randint(14, 20)
+      elif 4 >= oxen > 2:
+        distance_travelled = random.randint(7, 14)
+      elif oxen =< 0:
+        distance_travelled = 1
+      else:
+            distance_travelled = random.randint(5, 7)
+  if what_to_judge_travel_by == 3:
+      if wheels >=4:
+        distance_travelled = random.randint(12, 18)
+      elif wheels =< 0:
+        distance_travelled = 1
+      else:
+            distance_travelled = random.randint(5, 11)
   print(f"You travelled {distance_travelled} miles.")
   return(distance_travelled)
 
 def rest():
-  return 
+  possible_health_gains = [5, 5, 5, 10, 10, 10, 10, 15, 15, 20]
+  index = random.randint(0,9)
+  health_gain = possible_health_gains[index]
+  print(f"You gained {health_gain} in health.")
+  return(health_gain)
 
 def buy():
-  return
+  global food
+  global wheels
+  global oxen
+  global clothes
+  purchase = random.randint(1, 8)
+  if purchase == 1:
+    oxen += 1
+    money_spent = 20
+    print("You spent $20 on 1 ox.")
+  if purchase == 2:
+    clothes += 1
+    money_spent = 10
+    print("You spent $10 on 1 set of clothing.")
+  if purchase == 3:
+    wheels += 1
+    money_spent = 10
+    print("You spent $10 on 1 wheel.")
+  if purchase == 4:
+    food += 100
+    money_spent = 20
+    print("You spent $20 on 100 lbs of food.")
+  if purchase == 5:
+    oxen += 2
+    money_spent = 40
+    print("You spent $40 on 2 oxen.")
+  if purchase == 6:
+    clothes += 2
+    money_spent = 20
+    print("You spent $20 on 2 sets of clothing.")
+  if purchase == 7:
+    wheels += 2
+    money_spent = 20
+    print("You spent $20 on 2 wheels.")
+  if purchase == 8:
+    food += 200
+    money_spent = 40
+    print("You spent $40 on 200 lbs of food.")
+  return(money_spent)
 
 def hunt():
   possible_food_gains = [0, 20, 40, 60, 80, 100]
@@ -114,3 +175,16 @@ def hunt():
   food_gain = possible_food_gains[index]
   print(f"You gained {food_gain} lbs of food.")
   return(food_gain)
+
+intro()
+while game == True:
+  option = choose_an_option(days)
+  if option == "1":
+    distance -= travel()
+  elif option == "2":
+    health += rest()
+  elif option == "3":
+    money -= buy()
+  elif option == "4":
+    food += hunt()
+  days += 1
