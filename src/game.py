@@ -59,10 +59,13 @@ def status():
   print(f"Distance Remaining: {distance} miles")
   return
 
-def day():
+def choose_an_option(days):
   print("\n")
   time.sleep(1)
   print(f"This is day {1+days} of your trip.")
+  time.sleep(1)
+  status()
+  print("\n")
   time.sleep(1)
   print("Today, you may")
   print("1. Travel towards your destination")
@@ -74,25 +77,30 @@ def day():
   option = ""
   while option == "":
     option = input("What would you like to do today? ")
-    if option == "1":
-      travel()
-      return
-    elif option == "2":
-      rest()
-      return
-    elif option == "3":
-      buy()
-      return
-    elif option == "4":
-      hunt()
-      return
-    else:
+    if option not in "1234":
       option = ""
       time.sleep(1)
       print("That's not valid. Try again. The option must be an integer, either 1, 2, 3, or 4, depending on what you would like to do today.")
+    elif len(option) > 1:
+      option = ""
+      time.sleep(1)
+      print("That's not valid. Try again. The option must be an integer, either 1, 2, 3, or 4, depending on what you would like to do today.")
+    elif len(option) < 1:
+      option = ""
+      time.sleep(1)
+      print("That's not valid. Try again. The option must be an integer, either 1, 2, 3, or 4, depending on what you would like to do today.")
+    else:
+      return option 
 
-def travel():
-  return
+def travel(health):
+  if health >= 75:
+    distance_travelled = random.randint(12, 18)
+  elif 75 > health >= 50:
+    distance_travelled = random.randint(7, 13)
+  else:
+    distance_travelled = random.randint(5, 7)  
+  print(f"You travelled {distance_travelled} miles.")
+  return(distance_travelled)
 
 def rest():
   return 
@@ -101,7 +109,8 @@ def buy():
   return
 
 def hunt():
-  return
-
-def night():
-  return
+  possible_food_gains = [0, 20, 40, 60, 80, 100]
+  index = random.randint(0,5)
+  food_gain = possible_food_gains[index]
+  print(f"You gained {food_gain} lbs of food.")
+  return(food_gain)
