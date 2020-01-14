@@ -2,18 +2,18 @@ import pygame
 import time
 import random
 
-health = 100
+health = 150
 typhoid = False
 cholera = False
 dysentery = False
 measles = False
 days = 0
 distance = 2000
-food = 500
-wheels = 4
-oxen = 4
-clothes = 5
-money = 500
+food = 800
+wheels = 8
+oxen = 8
+clothes = 8
+money = 800
 diseases = []
 game = True
 
@@ -25,7 +25,7 @@ def intro():
       name = input("What is your name? ")
       for n in name.lower():
           if n not in "abcdefghijklmnopqrstuvwxyz":
-              print("That's not valid, try again.")
+              print("That's not valid, try again. Please only use letters in writing your name.")
               name = ""
               break
   print(f"Hello {name.title()}.")
@@ -41,9 +41,9 @@ def intro():
 
 def status():
   print("Your current status is as follows:")
-  if health >= 75:
+  if health >= 100:
     print(f"Health: Good ({health})")
-  elif 75 > health >= 50:
+  elif 100 > health >= 74:
     print(f"Health: Fair ({health})")
   else:
     print(f"Health: Poor ({health})")
@@ -331,17 +331,18 @@ def thief():
       if amount_stolen == 1 and money > 100:
         print("Thieves have come at night to steal $100.")
         money -= 100
-      elif amount_stolen == 2 and money > 200:
-        print("Thieves have come at night to steal $200.")
-        money -= 200
-      elif amount_stolen == 3 and money > 300:
-        print("Thieves have come at night to steal $300.")
-        money -= 300
+      elif amount_stolen == 2 and money > 80:
+        print("Thieves have come at night to steal $80.")
+        money -= 80
+      elif amount_stolen == 3 and money > 70:
+        print("Thieves have come at night to steal $70.")
+        money -= 70
       elif amount_stolen == 4 and money > 50:
         print("Thieves have come at night to steal $50.")
         money -= 50
       else:
         print("Thieves have come at night to steal all of your money.")
+        money = 0
   return
 
 def reevaluate_health():
