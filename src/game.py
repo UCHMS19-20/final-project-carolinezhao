@@ -385,6 +385,7 @@ def continue_game():
   else:
     return True
 
+
 intro()
 while game == True:
   option = choose_an_option()
@@ -402,3 +403,11 @@ while game == True:
   thief()
   days += 1
   game = continue_game()
+
+if distance == 0:
+  print("You won! You made it to Oregon before December 15th. Congratulations, and enjoy your life out west!")
+elif health <= 0:
+  print(f"You died on the trail, maybe due to disease or due to lack of proper food and clothing.")
+  print(f"You had {food} pounds of food left, {clothes} sets of clothing, and you were suffering from {len(diseases)} disease(s).")
+elif days == 259:
+  print("You made it as far as you could, but winter has fallen and you are too ill-equipped to travel, so you died on the trail.")
