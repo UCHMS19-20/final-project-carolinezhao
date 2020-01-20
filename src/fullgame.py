@@ -3,25 +3,31 @@ import time
 import random
 
 pygame.init()
-dayFont = pygame.font.SysFont('Courier New', 100)
 
 def load_ox_image(name):
+  """Loads an image for the ox animation and scales it properly. Returns the image"""
   image = pygame.image.load(name)
   image = pygame.transform.scale(image, (240, 100))
   return image
-
 def load_talking_image(name):
+  """Loads an image for the talking animation and scales it properly. Returns the image"""
   image = pygame.image.load(name)
   image = pygame.transform.scale(image, (325, 500))
   return image
-
 def load_hunting_image(name):
+  """Loads an image for the hunting animation and scales it properly. Returns the image"""
   image = pygame.image.load(name)
   image = pygame.transform.scale(image, (750, 261))
   return image
+def load_resting_image(name):
+  """Loads an image for the resting animation and returns it"""
+  image = pygame.image.load(name)
+  return image
 
 class oxSprite(pygame.sprite.Sprite):
+    '''Based on a code written by a Stack Overflow user regarding animation through Pygame'''
     def __init__(self):
+        """Loads the necessary images in the animation into a list (self.images)"""
         super(oxSprite, self).__init__()
         self.images = []
         self.images.append(load_ox_image('oxen1.png'))
@@ -33,34 +39,34 @@ class oxSprite(pygame.sprite.Sprite):
         self.image = self.images[self.index]
         self.rect = pygame.Rect(540, 300, 240, 100)
     def update(self):
-        '''This method iterates through the elements inside self.images and 
-        displays the next one each tick.'''
+        '''This method iterates through the elements inside self.images and displays the next one each tick'''
         self.index += 1
         time.sleep(0.3)
         if self.index >= len(self.images):
             self.index = 0
         self.image = self.images[self.index]
 class talkingSprite(pygame.sprite.Sprite):
+    '''Based on a code written by a Stack Overflow user regarding animation through Pygame'''
     def __init__(self):
+        """Loads the necessary images in the animation into a list (self.images)"""
         super(talkingSprite, self).__init__()
         self.images = []
         self.images.append(load_talking_image('talking1.png'))
         self.images.append(load_talking_image('talking2.png'))
-
         self.index = 0
         self.image = self.images[self.index]
         self.rect = pygame.Rect(237.5, 100, 325, 500)
-
     def update(self):
-        '''This method iterates through the elements inside self.images and 
-        displays the next one each tick.'''
+        '''This method iterates through the elements inside self.images and displays the next one each tick'''
         self.index += 1
         time.sleep(0.3)
         if self.index >= len(self.images):
             self.index = 0
         self.image = self.images[self.index]
 class huntingSprite(pygame.sprite.Sprite):
+    '''Based on a code written by a Stack Overflow user regarding animation through Pygame'''
     def __init__(self):
+        """Loads the necessary images in the animation into a list (self.images)"""
         super(huntingSprite, self).__init__()
         self.images = []
         self.images.append(load_hunting_image('hunting1.png'))
@@ -70,23 +76,53 @@ class huntingSprite(pygame.sprite.Sprite):
         self.index = 0
         self.image = self.images[self.index]
         self.rect = pygame.Rect(25, 139, 750, 288)
-
     def update(self):
-        '''This method iterates through the elements inside self.images and 
-        displays the next one each tick.'''
+        '''This method iterates through the elements inside self.images and displays the next one each tick'''
         self.index += 1
         time.sleep(0.2)
         if self.index >= len(self.images):
             self.index = 0
         self.image = self.images[self.index]
+class restingSprite(pygame.sprite.Sprite):
+    '''Based on a code written by a Stack Overflow user regarding animation through Pygame'''
+    def __init__(self):
+        """Loads the necessary images in the animation into a list (self.images)"""
+        super(restingSprite, self).__init__()
+        self.images = []
+        self.images.append(load_resting_image('resting1.png'))
+        self.images.append(load_resting_image('resting2.png'))
+        self.images.append(load_resting_image('resting3.png'))
+        self.index = 0
+        self.image = self.images[self.index]
+        self.rect = pygame.Rect(227.5, 100, 345, 480)
+    def update(self):
+        '''This method iterates through the elements inside self.images and displays the next one each tick'''
+        self.index += 1
+        time.sleep(0.4)
+        if self.index >= len(self.images):
+            self.index = 0
+        self.image = self.images[self.index]
 
+# Defining pygame-related variables regarding displays, fonts, and sprites.
+dayFont = pygame.font.SysFont('Courier New', 100)
+screen = pygame.display.set_mode((800, 600))
+ox_sprite = oxSprite()
+ox_group = pygame.sprite.Group(ox_sprite)
+talking_sprite = talkingSprite()
+talking_group = pygame.sprite.Group(talking_sprite)
+hunting_sprite = huntingSprite()
+hunting_group = pygame.sprite.Group(hunting_sprite)
+resting_sprite = restingSprite()
+resting_group = pygame.sprite.Group(resting_sprite)
+
+# Defining the variables that are stats to judge how the player is doing during the game.
 health = 150
 typhoid = False
 cholera = False
 dysentery = False
 measles = False
-days = 2000
-distance = 0
+days = 0
+distance = 2000
 food = 800
 wheels = 8
 oxen = 8
@@ -96,6 +132,8 @@ diseases = []
 game = True
 
 def intro():
+  """An animated character explains the premise of the Oregon Trail Game to the player
+  Also asks for a name of the player (not to be used again, just for one line of personalization)"""
   for x in range (0, 10):
     talking_group.update()
     talking_group.draw(screen)
@@ -159,6 +197,7 @@ def intro():
   return
 
 def status():
+  """Print out the player's stats and generally inform them on them how well they are doing"""
   print("Your current status is as follows:")
   if health >= 100:
     print(f"Health: Good ({health})")
@@ -181,6 +220,9 @@ def status():
   return
 
 def choose_an_option():
+  """Displays a sign showing the day of the trip for the player to keep track
+  Also uses the status() function to inform the player of their stats
+  Asks the player what action they would like to take that day, returns the option the player chooses"""
   print("\n")
   time.sleep(1)
   print(f"This is day {1+days} of your trip.")
@@ -222,6 +264,9 @@ def choose_an_option():
       return option 
 
 def travel():
+  """Randomly generates a distance travelled by judging the health, the oxen, or the wheels that the player currently has
+  Animates an ox with a wagon walking before informing the player of the distance travelled
+  Returns the distance travelled"""
   what_to_judge_travel_by = random.randint(1,3)
   if what_to_judge_travel_by == 1:
       if health >= 75:
@@ -256,12 +301,23 @@ def travel():
   print(f"You travelled {distance_travelled} miles.")
   return(distance_travelled)
 
+#FIX HEALTH WORDS
 def rest():
+  """Randomly generates the amount of health recovered and randomly determines if the player will recover from a sickness (if applicable)
+  Animates a person sleeping and informs the player of any changes in the character's health
+  Returns the health gain"""
   global typhoid
   global cholera
   global dysentery
   global measles
   global diseases
+  for x in range (0, 11):
+    pygame.draw.rect(screen,(0,200,0),(0,400,800,200))
+    resting_group.update()
+    resting_group.draw(screen)
+    pygame.display.flip()
+    screen.fill((25,25,25))
+    pygame.draw.rect(screen,(0,200,0),(0,400,800,200))  
   possible_health_gains = [5, 5, 5, 10, 10, 10, 10, 15, 15, 20]
   index = random.randint(0,9)
   health_gain = possible_health_gains[index]
@@ -293,6 +349,21 @@ def rest():
   return(health_gain)
 
 def buy():
+  """Randomly uses the player's money to buy an item if they have enough money
+  Animates money flying away and informs the player of their purchase
+  Returns the money spent"""
+  money1 = pygame.image.load("money1.png")
+  money2 = pygame.image.load("money1.png")
+  x_coord = 0
+  y_coord = 400
+  for x in range (0, 11):
+    screen.fill((25, 25, 25))
+    screen.blit(money1, (x_coord,y_coord))
+    screen.blit(money2, (x_coord+100,y_coord-100))
+    pygame.display.update()
+    time.sleep(.2)
+    x_coord += 80
+    y_coord -= 50
   global food
   global wheels
   global oxen
@@ -336,6 +407,9 @@ def buy():
   return(money_spent)
 
 def hunt():
+  """Randomly generates an amount of food gained from a day of hunting by the player
+  Animates a moose being shot and informs the player of any changes in the food supply
+  Returns the food gain"""
   possible_food_gains = [80, 0, 80, 90, 20, 100, 40, 60, 80, 100, 100]
   index = random.randint(0,10)
   food_gain = possible_food_gains[index]
@@ -350,6 +424,8 @@ def hunt():
   return(food_gain)
 
 def eat():
+  """Randomly generates an amount of food eaten depending on the player's health
+  Informs the player of this number and returns the food eaten"""
   if health >= 75:
     food_eaten = random.randint(13, 17)
   elif 75 > health >= 50:
@@ -362,6 +438,8 @@ def eat():
   return(food_eaten)
 
 def sick():
+  """Randomly determines if a person will get sick and what disease they get
+  Informs the player if they have fallen ill and changes the illness stats as necessary"""
   global typhoid
   global cholera
   global dysentery
@@ -394,6 +472,8 @@ def sick():
   return
 
 def thief():
+  """Randomly determines if a thief will come take supplies from the person and how much they will take
+  Informs the player of their loss and changes the stats accordingly"""
   global food
   global wheels
   global oxen
@@ -486,6 +566,8 @@ def thief():
   return
 
 def reevaluate_health():
+  """Uses the player's stats to determine if their health decreases throughout the day
+  Returns the decrease in health"""
   health_decrease = 0
 
   if len(diseases) == 1:
@@ -516,6 +598,9 @@ def reevaluate_health():
   return(health_decrease)
 
 def continue_game():
+  """Determines if the game should continue
+  Will stop the game if the health is below 0, if the player has taken too long to reach their destination, or if the player has reached their destination
+  Returns either false or true"""
   if health <= 0:
     return False
   if days >= 259:
@@ -525,20 +610,15 @@ def continue_game():
   else:
     return True
 
-screen = pygame.display.set_mode((800, 600))
-ox_sprite = oxSprite()
-ox_group = pygame.sprite.Group(ox_sprite)
-talking_sprite = talkingSprite()
-talking_group = pygame.sprite.Group(talking_sprite)
-hunting_sprite = huntingSprite()
-hunting_group = pygame.sprite.Group(hunting_sprite)
-
 intro()
 while game == True:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       game = False
+
   screen.fill((25,25,25))
+
+  # The player chooses what they would like to do, and the game calls on the function that corresponds to the player's choice
   option = choose_an_option()
   if option == "1":
     distance -= travel()
@@ -548,14 +628,18 @@ while game == True:
     money -= buy()
   elif option == "4":
     food += hunt()
-  time.sleep(2)
+  time.sleep(1)
+
+  # Resetting the screen to show the sign with the day number on it while the "nighttime" events happen (see below)
   screen.fill((25,25,25))
   image = pygame.image.load("DaySign.png")
   screen.blit(image, (182.5, 240))
   dayNumber = dayFont.render("DAY: " + str(days+1), False, (253, 205, 146))
   screen.blit(dayNumber,(255,320))
   pygame.display.update()
-  time.sleep(2)
+  time.sleep(1)
+
+  # The game re-evaluates the player's stats and determines if any tragic events will happen to them at the end of the day/night
   health -= reevaluate_health()
   food -= eat()
   sick()
@@ -563,6 +647,7 @@ while game == True:
   days += 1
   game = continue_game()
 
+# Congratulatory message to be displayed the player wins the game by reaching Oregon
 if distance <= 0:
   screen.fill((25,25,25))
   image = pygame.image.load("oregon.png")
@@ -572,6 +657,7 @@ if distance <= 0:
   print("\n")
   print("You won! You made it to Oregon before December 15th. Congratulations, and enjoy your life out west!")
 
+# Losing message to be displayed if the player dies by losing all their health
 elif health <= 0:
   screen.fill((25,25,25))
   pygame.draw.rect(screen,(0,200,0),(0,400,800,200))
@@ -583,6 +669,7 @@ elif health <= 0:
   print(f"You died on the trail, maybe due to disease or due to lack of proper food and clothing. Sorry.")
   print(f"You had {food} pounds of food left, {clothes} sets of clothing, and you were suffering from {len(diseases)} disease(s).")
 
+# Losing message to be displayed if the player runs out of time and does not make it to the destination
 elif days >= 259:
   screen.fill((25,25,25))
   pygame.draw.rect(screen,(0,200,0),(0,400,800,200))
