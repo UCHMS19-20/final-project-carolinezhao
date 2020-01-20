@@ -301,11 +301,10 @@ def travel():
   print(f"You travelled {distance_travelled} miles.")
   return(distance_travelled)
 
-#FIX HEALTH WORDS
 def rest():
-  """Randomly generates the amount of health recovered and randomly determines if the player will recover from a sickness (if applicable)
+  """Randomly generates the amount of health gained (the amount to be added to a player's health status) and randomly determines if the player will recover from a sickness (if applicable)
   Animates a person sleeping and informs the player of any changes in the character's health
-  Returns the health gain"""
+  Returns the health gain (to be added to the player's health stat)"""
   global typhoid
   global cholera
   global dysentery
