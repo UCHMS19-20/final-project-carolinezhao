@@ -30,10 +30,10 @@ class oxSprite(pygame.sprite.Sprite):
         """Loads the necessary images in the animation into a list (self.images)"""
         super(oxSprite, self).__init__()
         self.images = []
-        self.images.append(load_ox_image('oxen1.png'))
-        self.images.append(load_ox_image('oxen3.png'))
-        self.images.append(load_ox_image('oxen2.png'))
-        self.images.append(load_ox_image('oxen3.png'))
+        self.images.append(load_ox_image(r"src\img\ox1.png"))
+        self.images.append(load_ox_image(r"src\img\ox3.png"))
+        self.images.append(load_ox_image(r"src\img\ox2.png"))
+        self.images.append(load_ox_image(r"src\img\ox3.png"))
 
         self.index = 0
         self.image = self.images[self.index]
@@ -51,8 +51,8 @@ class talkingSprite(pygame.sprite.Sprite):
         """Loads the necessary images in the animation into a list (self.images)"""
         super(talkingSprite, self).__init__()
         self.images = []
-        self.images.append(load_talking_image('talking1.png'))
-        self.images.append(load_talking_image('talking2.png'))
+        self.images.append(load_talking_image(r"src\img\talking1.png"))
+        self.images.append(load_talking_image(r"src\img\talking2.png"))
         self.index = 0
         self.image = self.images[self.index]
         self.rect = pygame.Rect(237.5, 100, 325, 500)
@@ -69,10 +69,10 @@ class huntingSprite(pygame.sprite.Sprite):
         """Loads the necessary images in the animation into a list (self.images)"""
         super(huntingSprite, self).__init__()
         self.images = []
-        self.images.append(load_hunting_image('hunting1.png'))
-        self.images.append(load_hunting_image('hunting2.png'))
-        self.images.append(load_hunting_image('hunting3.png'))
-        self.images.append(load_hunting_image('hunting4.png'))
+        self.images.append(load_hunting_image(r"src\img\hunting1.png"))
+        self.images.append(load_hunting_image(r"src\img\hunting2.png"))
+        self.images.append(load_hunting_image(r"src\img\hunting3.png"))
+        self.images.append(load_hunting_image(r"src\img\hunting4.png"))
         self.index = 0
         self.image = self.images[self.index]
         self.rect = pygame.Rect(25, 139, 750, 288)
@@ -89,9 +89,9 @@ class restingSprite(pygame.sprite.Sprite):
         """Loads the necessary images in the animation into a list (self.images)"""
         super(restingSprite, self).__init__()
         self.images = []
-        self.images.append(load_resting_image('resting1.png'))
-        self.images.append(load_resting_image('resting2.png'))
-        self.images.append(load_resting_image('resting3.png'))
+        self.images.append(load_resting_image(r"src\img\resting1.png"))
+        self.images.append(load_resting_image(r"src\img\resting2.png"))
+        self.images.append(load_resting_image(r"src\img\resting3.png"))
         self.index = 0
         self.image = self.images[self.index]
         self.rect = pygame.Rect(227.5, 100, 345, 480)
@@ -106,6 +106,7 @@ class restingSprite(pygame.sprite.Sprite):
 # Defining pygame-related variables regarding displays, fonts, and sprites.
 dayFont = pygame.font.SysFont('Courier New', 100)
 screen = pygame.display.set_mode((800, 600))
+pygame.display.set_caption('Oregon Trail')
 ox_sprite = oxSprite()
 ox_group = pygame.sprite.Group(ox_sprite)
 talking_sprite = talkingSprite()
@@ -226,10 +227,10 @@ def choose_an_option():
   print("\n")
   time.sleep(1)
   print(f"This is day {1+days} of your trip.")
-  image = pygame.image.load("DaySign.png")
+  image = pygame.image.load(r"src\img\DaySign.png")
   screen.blit(image, (182.5, 240))
-  dayNumber = dayFont.render("DAY: " + str(days+1), False, (253, 205, 146))
-  screen.blit(dayNumber,(255,320))
+  dayNumber = dayFont.render("DAY:" + str(days+1), False, (253, 205, 146))
+  screen.blit(dayNumber,(200,270))
   pygame.display.update()
   time.sleep(1)
   status()
@@ -351,8 +352,8 @@ def buy():
   """Randomly uses the player's money to buy an item if they have enough money
   Animates money flying away and informs the player of their purchase
   Returns the money spent"""
-  money1 = pygame.image.load("money1.png")
-  money2 = pygame.image.load("money1.png")
+  money1 = pygame.image.load(r"src\img\money1.png")
+  money2 = pygame.image.load(r"src\img\money1.png")
   x_coord = 0
   y_coord = 400
   for x in range (0, 11):
@@ -631,10 +632,10 @@ while game == True:
 
   # Resetting the screen to show the sign with the day number on it while the "nighttime" events happen (see below)
   screen.fill((25,25,25))
-  image = pygame.image.load("DaySign.png")
+  image = pygame.image.load(r"src\img\DaySign.png")
   screen.blit(image, (182.5, 240))
-  dayNumber = dayFont.render("DAY: " + str(days+1), False, (253, 205, 146))
-  screen.blit(dayNumber,(255,320))
+  dayNumber = dayFont.render("DAY:" + str(days+1), False, (253, 205, 146))
+  screen.blit(dayNumber,(200,270))
   pygame.display.update()
   time.sleep(1)
 
@@ -649,7 +650,7 @@ while game == True:
 # Congratulatory message to be displayed the player wins the game by reaching Oregon
 if distance <= 0:
   screen.fill((25,25,25))
-  image = pygame.image.load("oregon.png")
+  image = pygame.image.load(r"src\img\oregon.png")
   image = pygame.transform.scale(image, (800, 600))
   screen.blit(image, (0, 0))
   pygame.display.update()
@@ -660,7 +661,7 @@ if distance <= 0:
 elif health <= 0:
   screen.fill((25,25,25))
   pygame.draw.rect(screen,(0,200,0),(0,400,800,200))
-  image = pygame.image.load("tombstone.png")
+  image = pygame.image.load(r"src\img\tombstone.png")
   image = pygame.transform.scale(image, (490, 525))
   screen.blit(image, (155, 50))
   pygame.display.update()
@@ -672,7 +673,7 @@ elif health <= 0:
 elif days >= 259:
   screen.fill((25,25,25))
   pygame.draw.rect(screen,(0,200,0),(0,400,800,200))
-  image = pygame.image.load("tombstone.png")
+  image = pygame.image.load(r"src\img\tombstone.png")
   image = pygame.transform.scale(image, (490, 525))
   screen.blit(image, (155, 50))
   pygame.display.update()
