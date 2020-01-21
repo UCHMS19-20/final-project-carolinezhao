@@ -7,7 +7,7 @@ This game is modelled after the Oregon Trail computer game series that was made 
 To play the game, no detailed instructions are needed, as all the information is provided on prompts displayed on the screen.
 
 ### NOTE
-* Was absent from 1/2 to 1/10, so did not get the opportunity to constantly update each day
+* Was absent from 1/2 to 1/10 due to appendicitis and surgery recovery, so did not get the opportunity to constantly update each day
 * Update history is sometimes in chunks because some editing at home was done in repl (installation of vscode/python didn't work on Mac because Mac has python2.7 already installed so pygame install goes on 2.7, not 3.8; couldn't figure out how to fix)
 
 ## Links
