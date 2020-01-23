@@ -506,7 +506,7 @@ def thief():
       elif amount_stolen == 2 and wheels > 2:
         print("Thieves have come at night to steal 2 wheels.")
         wheels -= 2
-      elif amount_stolen == 1 and wheels > 1:
+      elif amount_stolen == 3 and wheels > 1:
         print("Thieves have come at night to steal 1 wheel.")
         wheels -= 1
       elif amount_stolen == 4 and wheels > 2:
