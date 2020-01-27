@@ -14,7 +14,7 @@ To play the game, no detailed instructions are needed, as all the information is
 * [Presentation](https://docs.google.com/presentation/d/15c00wfT_Vy9LAfiicBnaiokbrRpcLzGVXo6mnPK4l5w/edit?usp=sharing)
 
 ## Works Cited
-“Animated Sprite from Few Images.” *Stack Overflow*, 1 Dec. 1962, stackoverflow.com/questions/14044147/animated-sprite-from-few-images.
+“Animated Sprite from Few Images.” *Stack Overflow*, stackoverflow.com/questions/14044147/animated-sprite-from-few-images.
 
 Khushlani, Lavina. “What Is the Surface.blit() Function in Pygame? What Does It Do? How Does It Work?” *Stack Overflow*, stackoverflow.com/questions/37800894/what-is-the-surface-blit-function-in-pygame-what-does-it-do-how-does-it-work.  
 
