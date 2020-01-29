@@ -610,7 +610,8 @@ def continue_game():
   else:
     return True
 
-#intro()
+# starting the while loop
+intro()
 while game == True:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
